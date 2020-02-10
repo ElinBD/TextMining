@@ -1,0 +1,787 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{assignment\_2\_ElinDijkstra}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{Import needed packages}\label{import-needed-packages}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{itertools} \PY{k}{import} \PY{n}{chain}
+        
+        \PY{k+kn}{import} \PY{n+nn}{nltk}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GroupKFold}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{make\PYZus{}scorer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}
+        
+        \PY{k+kn}{import} \PY{n+nn}{sklearn\PYZus{}crfsuite}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn\PYZus{}crfsuite} \PY{k}{import} \PY{n}{scorers}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn\PYZus{}crfsuite} \PY{k}{import} \PY{n}{metrics}
+        
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+\end{Verbatim}
+
+
+    \subsection{Load and process the data}\label{load-and-process-the-data}
+
+    The bio files are basically text files. I read in one document at a
+time, line by line and turn each line to a tuple. If it occurs that the
+tuple is not of length 3, do not add it to our data.
+
+We end up with a list of lists of length 22.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{load\PYZus{}process\PYZus{}data}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/bio}\PY{l+s+s2}{\PYZdq{}}
+            \PY{n}{file\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+                \PY{n}{file}  \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{n}{path} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{triple\PYZus{}array} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{file}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{line} \PY{o}{=} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{if} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} only add tri tuples}
+                        \PY{n}{triple\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to the list of a specific file}
+                \PY{n}{file\PYZus{}array}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{triple\PYZus{}array}\PY{p}{)} \PY{c+c1}{\PYZsh{} add to the list of files}
+        
+            \PY{k}{return} \PY{n}{file\PYZus{}array}
+\end{Verbatim}
+
+
+    \subsection{Features}\label{features}
+
+Next, define some features. In this example we use word identity, word
+suffix, word shape and word POS tag; also, some information from nearby
+words is used.
+
+This makes a simple baseline, but you certainly can add and remove some
+features to get (much?) better results - experiment with it.
+
+sklearn-crfsuite (and python-crfsuite) supports several feature formats;
+here we use feature dicts.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{def} \PY{n+nf}{word2features}\PY{p}{(}\PY{n}{sent}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{:}
+            \PY{n}{word} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+            \PY{n}{postag} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+            
+            \PY{n}{features} \PY{o}{=} \PY{p}{\PYZob{}}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bias}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word.lower()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word[\PYZhy{}3:]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word[\PYZhy{}2:]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word.isupper()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{o}{.}\PY{n}{isupper}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word.istitle()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{o}{.}\PY{n}{istitle}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word.isdigit()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag}\PY{p}{,}
+                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{postag[:2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}        
+            \PY{p}{\PYZcb{}}
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{word1} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{postag1} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{features}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1:word.lower()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1:word.istitle()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{istitle}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1:word.isupper()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{isupper}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1:postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}1:postag[:2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag1}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                \PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+                
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                \PY{n}{word1} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{n}{postag1} \PY{o}{=} \PY{n}{sent}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{n}{features}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+1:word.lower()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+1:word.istitle()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{istitle}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+1:word.isupper()}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{word1}\PY{o}{.}\PY{n}{isupper}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+1:postag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{+1:postag[:2]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{postag1}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                \PY{p}{\PYZcb{}}\PY{p}{)}
+            \PY{k}{else}\PY{p}{:}
+                \PY{n}{features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{EOS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+                        
+            \PY{k}{return} \PY{n}{features}
+        
+        
+        \PY{k}{def} \PY{n+nf}{sent2features}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{word2features}\PY{p}{(}\PY{n}{sent}\PY{p}{,} \PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{sent2labels}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{label} \PY{k}{for} \PY{n}{token}\PY{p}{,} \PY{n}{postag}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n}{sent}\PY{p}{]}
+        
+        \PY{k}{def} \PY{n+nf}{sent2tokens}\PY{p}{(}\PY{n}{sent}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{[}\PY{n}{token} \PY{k}{for} \PY{n}{token}\PY{p}{,} \PY{n}{postag}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n}{sent}\PY{p}{]}
+\end{Verbatim}
+
+
+    Extract features from the data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{extract\PYZus{}features}\PY{p}{(}\PY{n}{train\PYZus{}sents}\PY{p}{,} \PY{n}{test\PYZus{}sents}\PY{p}{)}\PY{p}{:}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{n}{sent2features}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{train\PYZus{}sents}\PY{p}{]}
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{p}{[}\PY{n}{sent2labels}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{train\PYZus{}sents}\PY{p}{]}
+        
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{sent2features}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{test\PYZus{}sents}\PY{p}{]}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{p}{[}\PY{n}{sent2labels}\PY{p}{(}\PY{n}{s}\PY{p}{)} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{test\PYZus{}sents}\PY{p}{]}
+            \PY{k}{return} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}
+\end{Verbatim}
+
+
+    \subsection{Training}\label{training}
+
+To see all possible CRF parameters check its docstring. Here we are
+useing L-BFGS training algorithm (it is default) with Elastic Net (L1 +
+L2) regularization.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{:}
+            \PY{n}{crf} \PY{o}{=} \PY{n}{sklearn\PYZus{}crfsuite}\PY{o}{.}\PY{n}{CRF}\PY{p}{(}
+                \PY{n}{algorithm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                \PY{n}{c1}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+                \PY{n}{c2}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,} 
+                \PY{n}{max\PYZus{}iterations}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} 
+                \PY{n}{all\PYZus{}possible\PYZus{}transitions}\PY{o}{=}\PY{k+kc}{True}
+            \PY{p}{)}
+            \PY{n}{crf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+            \PY{k}{return} \PY{n}{crf}
+\end{Verbatim}
+
+
+    \subsection{Evaluation}\label{evaluation}
+
+There is much more O entities in data set, but we're more interested in
+other entities. To account for this we'll use averaged F1 score computed
+for all labels except for O. \texttt{sklearn-crfsuite.metrics} package
+provides some useful metrics for sequence classification task, including
+this one.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{remove\PYZus{}o}\PY{p}{(}\PY{n}{crf}\PY{p}{)}\PY{p}{:}
+            \PY{n}{labels} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{crf}\PY{o}{.}\PY{n}{classes\PYZus{}}\PY{p}{)}
+            \PY{n}{labels}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{labels}
+\end{Verbatim}
+
+
+    Inspect per-class results in more detail:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{evaluate}\PY{p}{(}\PY{n}{crf}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{:}
+            \PY{n}{labels} \PY{o}{=} \PY{n}{remove\PYZus{}o}\PY{p}{(}\PY{n}{crf}\PY{p}{)}
+            \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{crf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+        
+            \PY{n}{metrics}\PY{o}{.}\PY{n}{flat\PYZus{}f1\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} 
+                                  \PY{n}{average}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weighted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{labels}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} group B and I results}
+            \PY{n}{sorted\PYZus{}labels} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}
+                \PY{n}{labels}\PY{p}{,} 
+                \PY{n}{key}\PY{o}{=}\PY{k}{lambda} \PY{n}{name}\PY{p}{:} \PY{p}{(}\PY{n}{name}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{name}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{flat\PYZus{}classification\PYZus{}report}\PY{p}{(}
+                \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{sorted\PYZus{}labels}\PY{p}{,} \PY{n}{digits}\PY{o}{=}\PY{l+m+mi}{3}
+            \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}transitions}\PY{p}{(}\PY{n}{trans\PYZus{}features}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{p}{(}\PY{n}{label\PYZus{}from}\PY{p}{,} \PY{n}{label\PYZus{}to}\PY{p}{)}\PY{p}{,} \PY{n}{weight} \PY{o+ow}{in} \PY{n}{trans\PYZus{}features}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}\PYZhy{}6s}\PY{l+s+s2}{ \PYZhy{}\PYZgt{} }\PY{l+s+si}{\PYZpc{}\PYZhy{}7s}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{label\PYZus{}from}\PY{p}{,} \PY{n}{label\PYZus{}to}\PY{p}{,} \PY{n}{weight}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}state\PYZus{}features}\PY{p}{(}\PY{n}{state\PYZus{}features}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{p}{(}\PY{n}{attr}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{,} \PY{n}{weight} \PY{o+ow}{in} \PY{n}{state\PYZus{}features}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}0.6f}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}\PYZhy{}8s}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{weight}\PY{p}{,} \PY{n}{label}\PY{p}{,} \PY{n}{attr}\PY{p}{)}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{main}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data} \PY{o}{=} \PY{n}{load\PYZus{}process\PYZus{}data}\PY{p}{(}\PY{p}{)}
+             
+             \PY{n}{group\PYZus{}kfold} \PY{o}{=} \PY{n}{GroupKFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+             \PY{k}{for} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{n}{test\PYZus{}index} \PY{o+ow}{in} \PY{n}{group\PYZus{}kfold}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{groups} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TRAIN DOCS:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{train\PYZus{}index}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TEST DOCS:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{test\PYZus{}index}\PY{p}{)}
+                 \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{[}\PY{n}{train\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{[}\PY{n}{test\PYZus{}index}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size training set:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Size test set:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{extract\PYZus{}features}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{)}
+                 \PY{n}{crf\PYZus{}fit} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+                 \PY{n}{evaluate}\PY{p}{(}\PY{n}{crf\PYZus{}fit}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+             
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Likeliness of transitions:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{print\PYZus{}transitions}\PY{p}{(}\PY{n}{Counter}\PY{p}{(}\PY{n}{crf\PYZus{}fit}\PY{o}{.}\PY{n}{transition\PYZus{}features\PYZus{}}\PY{p}{)}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top positive:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{print\PYZus{}state\PYZus{}features}\PY{p}{(}\PY{n}{Counter}\PY{p}{(}\PY{n}{crf\PYZus{}fit}\PY{o}{.}\PY{n}{state\PYZus{}features\PYZus{}}\PY{p}{)}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         main()
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+TRAIN DOCS: [ 0  1  2  3  5  6  7  8 10 11 12 13 15 16 17 18 20] TEST DOCS: [ 4  9 14 19 21]
+Size training set: 17 Size test set: 5
+              precision    recall  f1-score   support
+
+           B      0.871     0.797     0.832       659
+           I      0.904     0.900     0.902      5396
+
+   micro avg      0.901     0.889     0.895      6055
+   macro avg      0.887     0.848     0.867      6055
+weighted avg      0.900     0.889     0.895      6055
+
+Likeliness of transitions:
+O      -> O       1.984196
+I      -> I       1.915462
+B      -> I       1.259198
+I      -> B       -0.380772
+O      -> B       -0.443496
+I      -> O       -2.823157
+B      -> B       -3.096746
+B      -> O       -6.052400
+O      -> I       -9.118814
+Top positive:
+4.658955 B        -1:word.lower():n.y.;
+4.649724 I        -1:word.lower():and
+4.627466 I        -1:word.lower():al.,
+4.015111 B        +1:word.lower():et
+3.757527 O        -1:word.lower():al.,
+3.452747 O        word[-3:]:).(
+3.452747 O        word[-2:]:.(
+3.306772 B        -1:word.lower():(1983);
+3.295518 B        +1:word.lower():and
+3.272000 I        -1:word.lower():\&
+3.261898 B        word.lower():ibid.,
+3.113252 B        -1:word.lower():culture;
+3.084125 O        -1:word.lower():(1983);
+2.930753 O        word[-3:]:),(
+2.930753 O        word[-2:]:,(
+2.914782 O        word[-3:]:);(
+2.914782 O        word[-2:]:;(
+2.866747 B        word.istitle()
+2.826713 I        -1:word.lower():der
+2.756683 B        -1:word.lower():(“berger”);
+2.741547 B        -1:word.lower():108:2764-2765;
+2.713523 B        -1:word.lower():(1985);
+2.699468 B        -1:word.lower():(1990);
+2.675344 I        -1:word.lower():den
+2.544816 B        -1:word.lower():york;
+2.534906 O        word[-2:]:In
+2.483725 B        +1:word.lower():sambrook
+2.479287 O        word[-2:]:.[
+2.410361 B        word.lower():de
+2.390929 B        -1:word.lower():(1995);
+TRAIN DOCS: [ 1  2  3  4  6  7  8  9 11 12 13 14 16 17 18 19 21] TEST DOCS: [ 0  5 10 15 20]
+Size training set: 17 Size test set: 5
+              precision    recall  f1-score   support
+
+           B      0.798     0.657     0.721       645
+           I      0.819     0.748     0.782      5237
+
+   micro avg      0.817     0.738     0.775      5882
+   macro avg      0.809     0.702     0.751      5882
+weighted avg      0.817     0.738     0.775      5882
+
+Likeliness of transitions:
+O      -> O       2.846294
+I      -> I       2.188201
+B      -> I       0.624008
+O      -> B       -0.662217
+I      -> B       -0.868020
+I      -> O       -2.474064
+B      -> B       -3.436301
+B      -> O       -6.887023
+O      -> I       -8.290826
+Top positive:
+4.310971 B        +1:word.lower():and
+4.069265 O        -1:word.lower():(1983);
+3.686122 I        -1:word.lower():and
+3.520776 O        word[-3:]:).(
+3.520776 O        word[-2:]:.(
+3.328698 I        -1:word.lower():\&
+3.298931 B        -1:word.lower():press);
+3.280390 B        +1:word.lower():et
+3.193555 B        word.lower():ibid.,
+3.182928 B        -1:word.lower():sons);
+3.137052 O        word[-3:]:),(
+3.137052 O        word[-2:]:,(
+3.003350 O        word[-3:]:);(
+3.003350 O        word[-2:]:;(
+2.811648 B        word.istitle()
+2.670311 I        -1:word.lower():al.
+2.540985 I        -1:word.lower():der
+2.526612 O        word[-2:]:.[
+2.484239 B        -1:word.lower():(1987);
+2.471943 B        -1:word.lower():(1985);
+2.382535 B        -1:word.lower():(1983);
+2.365271 I        word.lower():elsen
+2.365271 I        -1:word.lower():den
+2.364855 B        word.lower():pcr2:
+2.364855 B        word[-3:]:R2:
+2.342207 O        word[-2:]:In
+2.331801 B        -1:word.lower():inc.);
+2.306227 I        -1:word.lower():1996,
+2.298281 B        word.lower():virology
+2.258266 O        word[-2:]:nd
+TRAIN DOCS: [ 0  2  3  4  5  7  8  9 10 12 13 14 15 17 18 19 20 21] TEST DOCS: [ 1  6 11 16]
+Size training set: 18 Size test set: 4
+              precision    recall  f1-score   support
+
+           B      0.891     0.812     0.850       526
+           I      0.943     0.889     0.916      4318
+
+   micro avg      0.938     0.881     0.909      4844
+   macro avg      0.917     0.851     0.883      4844
+weighted avg      0.938     0.881     0.908      4844
+
+Likeliness of transitions:
+O      -> O       3.019754
+I      -> I       2.524774
+B      -> I       1.354465
+O      -> B       -0.399675
+I      -> B       -0.551437
+I      -> O       -2.245654
+B      -> B       -3.553716
+B      -> O       -6.283423
+O      -> I       -7.807896
+Top positive:
+4.810347 B        -1:word.lower():n.y.;
+4.403756 I        -1:word.lower():and
+3.896304 B        +1:word.lower():and
+3.616042 B        word.lower():ibid.,
+3.550176 I        -1:word.lower():\&
+3.301265 O        word[-3:]:);(
+3.301265 O        word[-2:]:;(
+3.109892 I        -1:word.lower():der
+3.046537 O        word[-3:]:).(
+3.046537 O        word[-2:]:.(
+3.018441 B        -1:word.lower():sons);
+2.997642 B        word.istitle()
+2.992770 I        -1:word.lower():den
+2.986186 O        word[-3:]:),(
+2.986186 O        word[-2:]:,(
+2.942575 B        -1:word.lower():(“berger”);
+2.932606 B        -1:word.lower():culture;
+2.927118 B        -1:word.lower():press);
+2.913919 B        -1:word.lower():(1985);
+2.898027 B        -1:word.lower():(1983);
+2.885079 O        -1:word.lower():york)
+2.836208 B        +1:word.lower():et
+2.721709 B        -1:word.lower():(1987);
+2.652509 I        -1:word.lower():immobilisation.
+2.640970 O        word[-2:]:In
+2.630708 O        word.lower():(and
+2.623980 I        -1:word.lower():publishing
+2.560307 I        -1:word.lower():(1995)
+2.526809 O        word[-2:]:.[
+2.477861 I        +1:word.lower():wiley-interscience).exemplary
+TRAIN DOCS: [ 0  1  3  4  5  6  8  9 10 11 13 14 15 16 18 19 20 21] TEST DOCS: [ 2  7 12 17]
+Size training set: 18 Size test set: 4
+              precision    recall  f1-score   support
+
+           B      0.911     0.748     0.822       151
+           I      0.968     0.849     0.904      1216
+
+   micro avg      0.962     0.838     0.896      1367
+   macro avg      0.940     0.799     0.863      1367
+weighted avg      0.962     0.838     0.895      1367
+
+Likeliness of transitions:
+O      -> O       2.896014
+I      -> I       1.895154
+B      -> I       0.785492
+O      -> B       -0.579760
+I      -> B       -0.598849
+I      -> O       -1.959662
+B      -> B       -3.617159
+B      -> O       -6.142337
+O      -> I       -8.833193
+Top positive:
+5.213515 B        -1:word.lower():n.y.;
+4.306602 I        -1:word.lower():and
+3.810697 I        -1:word.lower():\&
+3.670181 O        -1:word.lower():(1983);
+3.634185 O        word[-3:]:).(
+3.634185 O        word[-2:]:.(
+3.497752 B        +1:word.lower():and
+3.447670 O        word[-3:]:);(
+3.447670 O        word[-2:]:;(
+3.360963 B        -1:word.lower():sons);
+3.257512 B        +1:word.lower():sambrook
+3.257450 O        word[-3:]:),(
+3.257450 O        word[-2:]:,(
+3.218800 B        -1:word.lower():(1983);
+3.109397 I        -1:word.lower():der
+3.077982 I        -1:word.lower():den
+2.927894 I        -1:word.lower():immobilisation.
+2.853706 B        -1:word.lower():press);
+2.797110 O        word[-3:]:ly,
+2.780389 O        word[-2:]:In
+2.760755 B        -1:word.lower():culture;
+2.753807 B        word.istitle()
+2.737769 O        -1:word.lower():(1993);
+2.621511 B        +1:word.lower():et
+2.546267 B        -1:word.lower():(1994);
+2.537690 I        -1:word.lower():for
+2.468524 O        word[-2:]:nd
+2.462998 B        +1:word.lower():(1996)
+2.437573 B        word.lower():pcr2:
+2.437573 B        word[-3:]:R2:
+TRAIN DOCS: [ 0  1  2  4  5  6  7  9 10 11 12 14 15 16 17 19 20 21] TEST DOCS: [ 3  8 13 18]
+Size training set: 18 Size test set: 4
+              precision    recall  f1-score   support
+
+           B      0.708     0.558     0.624       113
+           I      0.811     0.787     0.799       779
+
+   micro avg      0.800     0.758     0.778       892
+   macro avg      0.759     0.672     0.711       892
+weighted avg      0.798     0.758     0.777       892
+
+Likeliness of transitions:
+O      -> O       3.963442
+I      -> I       2.883310
+B      -> I       1.242183
+O      -> B       0.483777
+I      -> B       -0.356206
+I      -> O       -1.751293
+B      -> B       -3.926647
+B      -> O       -6.621267
+O      -> I       -7.376120
+Top positive:
+5.173306 B        -1:word.lower():n.y.;
+3.843631 B        +1:word.lower():and
+3.793371 I        -1:word.lower():and
+3.758781 B        word.lower():ibid.,
+3.692348 I        -1:word.lower():\&
+3.566126 O        word[-3:]:).(
+3.566126 O        word[-2:]:.(
+3.459943 O        word[-3:]:);(
+3.459943 O        word[-2:]:;(
+3.370527 O        -1:word.lower():(1983);
+3.366441 B        -1:word.lower():(1983);
+3.343836 B        -1:word.lower():(“berger”);
+3.266565 B        -1:word.lower():sons);
+2.985253 O        word[-3:]:),(
+2.985253 O        word[-2:]:,(
+2.976750 I        -1:word.lower():der
+2.951335 B        -1:word.lower():(1985);
+2.898175 B        -1:word.lower():press);
+2.894594 B        -1:word.lower():(1994);
+2.870309 B        -1:word.lower():culture;
+2.849527 O        -1:word.lower():(1993);
+2.830451 I        -1:word.lower():immobilisation.
+2.791930 B        -1:word.lower():(1987);
+2.525913 O        word[-2:]:.[
+2.516371 B        +1:word.lower():et
+2.444853 B        -1:word.lower():(1990);
+2.426320 O        word[-2:]:nd
+2.424671 O        word[-2:]:In
+2.397228 O        -1:word.lower():york)
+2.380346 B        word.istitle()
+Wall time: 2min 50s
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
